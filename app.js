@@ -1,0 +1,202 @@
+var express = require('express')
+  , routes = require('./routes')
+  , user = require('./routes/user')
+  , http = require('http')
+  , path = require('path');
+const fs = require('fs');
+
+var fetch = require('node-fetch');
+var atob = require('atob');
+var Highcharts = require('highcharts');
+
+var math = require('mathjs');
+var convertHex = require('convert-hex')
+
+var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+//var mqtt = require('mqtt');
+//var client  = mqtt.connect('http://198.199.97.15', {username:'master', password:'f4rm1nGC'})
+
+var pos;
+var lng,lat;
+
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(require('stylus').middleware(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+app.get('/', routes.index);
+app.get('/users', user.list);
+
+/*
+client.on('connect', function () {
+  client.subscribe('application/2220000000000000/node/0000000000000022/rx')
+  client.publish('presence', 'Hello mqtt')
+})
+
+const url = 'web.beelan.mx/api/upLink/43435daeccbb21b0'; /// API
+const headers = {
+  'Content-Type': 'application/json',
+  'Authoritation': '' /// TOKEN
+}
+const options = {
+  method: 'GET',
+  headers
+}
+// ------------------------------------------------------------  //
+const getData = async () => {
+  const api = await fetch(url, options);
+  return api;
+}*/
+
+const url = 'http://web.beelan.mx/api/upLink/43435daeccbb21b0';
+    // ------------------------------------------------------------  //
+const getData = () => {
+      fetch(url)
+        .then((response) => response.json())
+        .then((response) => parseData(response.slice(Math.max(response.length -10 , 1)))) //-10
+
+        .catch((err) => console.log(err));
+
+    }
+
+
+// La data de cada uno de los paquetes recividos esta en base64
+const parseData = (data) => {
+  // la data de cada uno de los objetos sera convertida de base64 a hexa y de hexa a decimal
+  return data.map((item) => {
+    //console.log(base64toHEX(item.data))
+    let wero = {};
+     wero.data = corrimiento(parseHexString(base64toHEX(item.data)));
+      wero.color = colores(item.macGateway);
+      wero.fCnt = item.fCnt;
+     return wero;
+  })
+}
+const runArray = (data) => {
+  return data.map((item) => {
+    return parseHexString(item.data);
+  })
+}
+const base64toHEX = (base64) => {
+  const raw = atob(base64);
+  let HEX = '';
+  for (let i = 0; i < raw.length; i++) {
+    const hex = raw.charCodeAt(i).toString(16);
+    HEX += (hex.length === 2 ? hex : `0${hex}`);
+  }
+  return HEX.toUpperCase();
+}
+
+/*
+client.on('message', function (topic, message) {
+  // message is Buffer
+  var json = message.toString();
+  var msg = JSON.parse(json);
+  console.log(msg);
+  console.log(msg.data);
+
+
+  var hexa = new Buffer.from(msg.data, 'base64').toString('hex');
+  console.log(hexa);
+  var data = parseHexString(hexa);
+  console.log(data);
+  for (var i = 2; i < 12; i++) {
+    console.log(data[i]);
+  }
+  console.log();
+  pos = {
+     lat: (data[4] + (data[3] << 8) + (data[2] <<16 )) / 10000,
+     lng: (-1)*((data[7] + (data[6] << 8) + (data[5] <<16 )) / 10000),
+     alt: ((data[10] + (data[9] << 8) + (data[8] <<16 )) / 100)
+  };
+
+  //lat = (data[0] + (data[1] << 8) + (data[2] <<16 )) / 10000
+  //lon = (-1)*((data[3] + (data[4] << 8) + (data[5] <<16 )) / 10000)
+  console.log(pos);
+});
+*/
+
+io.sockets.on('connection', function(socket){
+	socket.on('coords:me', function(data){
+		//console.log(data);
+		socket.broadcast.emit('coords:user', data);
+	});
+  setInterval(() => {
+    socket.emit('coords:gps', {
+           latlng: getData();
+        });
+  }, 10000);
+
+});
+
+function parseHexString(str) {
+  console.log(str);
+    var result = [];
+    while (str.length >= 2) {
+        result.push(parseInt(str.substring(0, 2), 16));
+        str = str.substring(2, str.length);
+
+    }
+    console.log(result);
+    return result;
+}
+
+function colores(gateway) {
+  switch (gateway) {
+    case '008000000000aaaa':
+      return '#f51035'
+      break;
+    case '009000000000aabb':
+        return '#bafc5c'
+        break;
+    case 'b827ebffffbe86a6':
+        return '#ffae34'
+        break;
+    default:
+
+  }
+
+}
+
+function corrimiento(data) {
+    pos = {
+       lat: (data[4] + (data[3] << 8) + (data[2] <<16 )) / 10000,
+       lng: (-1)*((data[7] + (data[6] << 8) + (data[5] <<16 )) / 10000),
+       //alt: ((data[10] + (data[9] << 8) + (data[8] <<16 )) / 100)
+    };
+    return pos;
+}
+
+function parseHexString(str) {
+    var result = [];
+    while (str.length >= 2) {
+        result.push(parseInt(str.substring(0, 2), 16));
+        str = str.substring(2, str.length);
+    }
+    return result;
+}
+
+getData();
+
+setInterval(() => {
+  getData();
+}, 10000);
+
+server.listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});

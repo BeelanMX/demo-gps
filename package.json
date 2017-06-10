@@ -1,0 +1,21 @@
+{
+  "name": "TrackingCat",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "convert-hex": "^0.1.0",
+    "express": "3.3.4",
+    "jade": "*",
+    "mathjs": "^3.6.0",
+    "mqtt": "^2.1.3",
+    "serialport": "*",
+    "socket.io": "*",
+    "stylus": "*"
+  },
+  "devDependencies": {
+    "nodemon": "*"
+  }
+}
