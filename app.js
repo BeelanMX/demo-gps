@@ -65,11 +65,12 @@ const getData = async () => {
 
 const url = 'http://web.beelan.mx/api/upLink/43435daeccbb21b0';
     // ------------------------------------------------------------  //
+    var SendSocket = []
 const getData = () => {
       fetch(url)
         .then((response) => response.json())
         .then((response) => parseData(response.slice(Math.max(response.length -10 , 1)))) //-10
-
+        .then((response) => SendSocket = response) //-10
         .catch((err) => console.log(err));
 
     }
@@ -137,8 +138,10 @@ io.sockets.on('connection', function(socket){
 		socket.broadcast.emit('coords:user', data);
 	});
   setInterval(() => {
+    getData()
+    //console.log(SendSocket)
     socket.emit('coords:gps', {
-           latlng: getData();
+           latlng: SendSocket
         });
   }, 10000);
 
@@ -191,11 +194,11 @@ function parseHexString(str) {
     return result;
 }
 
-getData();
-
-setInterval(() => {
-  getData();
-}, 10000);
+// getData();
+//
+// setInterval(() => {
+//   getData();
+// }, 10000);
 
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
