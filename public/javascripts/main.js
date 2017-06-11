@@ -1,6 +1,6 @@
 var blueIcon = new L.Icon({
 	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-blue.png',
-	shadowUrl: 'img/marker-shadow.png',
+	shadowUrl: '/stylesheets/bootstrap/img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
 	popupAnchor: [1, -34],
@@ -9,7 +9,7 @@ var blueIcon = new L.Icon({
 
 var redIcon = new L.Icon({
 	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-red.png',
-	shadowUrl: 'img/marker-shadow.png',
+	shadowUrl: '/stylesheets/bootstrap/img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
 	popupAnchor: [1, -34],
@@ -18,7 +18,7 @@ var redIcon = new L.Icon({
 
 var greenIcon = new L.Icon({
 	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-green.png',
-	shadowUrl: 'img/marker-shadow.png',
+	shadowUrl: '/stylesheets/bootstrap/img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
 	popupAnchor: [1, -34],
@@ -27,7 +27,7 @@ var greenIcon = new L.Icon({
 
 var orangeIcon = new L.Icon({
 	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-orange.png',
-	shadowUrl: 'img/marker-shadow.png',
+	shadowUrl: '/stylesheets/bootstrap/img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
 	popupAnchor: [1, -34],
@@ -36,7 +36,7 @@ var orangeIcon = new L.Icon({
 
 var yellowIcon = new L.Icon({
 	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-yellow.png',
-	shadowUrl: 'img/marker-shadow.png',
+	shadowUrl: '/stylesheets/bootstrap/img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
 	popupAnchor: [1, -34],
@@ -45,7 +45,7 @@ var yellowIcon = new L.Icon({
 
 var violetIcon = new L.Icon({
 	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-violet.png',
-	shadowUrl: 'img/marker-shadow.png',
+	shadowUrl: '/stylesheets/bootstrap/img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
 	popupAnchor: [1, -34],
@@ -54,7 +54,7 @@ var violetIcon = new L.Icon({
 
 var greyIcon = new L.Icon({
 	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-grey.png',
-	shadowUrl: 'img/marker-shadow.png',
+	shadowUrl: '/stylesheets/bootstrap/img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
 	popupAnchor: [1, -34],
@@ -121,7 +121,16 @@ function onScript(){
 		console.log(data);
 
 		var markers = data.latlng.map(function (item) {
-	  return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+			//console.log(item.color);
+			if(item.color == '#f51035'){
+	  		return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+			}
+			if(item.color == '#ffae34'){
+	  		return L.marker([item.data.lat, item.data.lng], {icon: blueIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+			}
+			if(item.color == '#bafc5c'){
+	  		return L.marker([item.data.lat, item.data.lng], {icon: redIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+			}
     })
 		//console.log(markers);
 
