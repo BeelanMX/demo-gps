@@ -42,27 +42,19 @@ function onScript(){
 
 	}
 
-	var gps = L.marker([21.9008, -102.3163]);
-	var gps1 = L.marker([21.9008, -102.3163]);
-	mymap.addLayer(gps);
-	mymap.addLayer(gps1);
+
 	var posizioni = [];
 
 	socket.on('coords:gps', function (data) {
 		console.log(data);
-		console.log(data.latlng[0].data.lat);
-		console.log(data.latlng[0].data.lng);
-		/*let pos = {
-			data.latlng[0].data.lat,
-			data.latlng[0].data.lat
-		}*/
-		gps.setLatLng([data.latlng[0].data.lat,data.latlng[0].data.lng]).update();
-		//posizioni.push(pos);
-		gps.bindPopup( "RFM95").openPopup();
-		gps1.setLatLng([data.latlng[1].data.lat,data.latlng[1].data.lng]).update();
-		gps1.bindPopup( "RFM94").openPopup();
-		//var polyline = L.polyline(posizioni, {color: 'red'}).addTo(mymap);
-		//mymap.fitBounds(polyline.getBounds());
+
+		var markers = data.latlng.map(function (item) {
+	  return L.marker([item.data.lat, item.data.lng]).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+    })
+		//console.log(markers);
+
+		var cities = L.layerGroup(markers).addTo(mymap);
+
 
 	});
 
