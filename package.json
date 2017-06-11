@@ -13,7 +13,10 @@
     "mqtt": "^2.1.3",
     "serialport": "*",
     "socket.io": "*",
-    "stylus": "*"
+    "stylus": "*",
+    "node-fetch":"*",
+    "atob": "*",
+    "highcharts": "*" 
   },
   "devDependencies": {
     "nodemon": "*"
