@@ -59,7 +59,7 @@ function onScript(){
 		gps.setLatLng([data.latlng[0].data.lat,data.latlng[0].data.lng]).update();
 		//posizioni.push(pos);
 		gps.bindPopup( "RFM95").openPopup();
-		gps1.setLatLng([21.9004,-102.3162]).update();
+		gps1.setLatLng([data.latlng[1].data.lat,data.latlng[1].data.lng]).update();
 		gps1.bindPopup( "RFM94").openPopup();
 		//var polyline = L.polyline(posizioni, {color: 'red'}).addTo(mymap);
 		//mymap.fitBounds(polyline.getBounds());

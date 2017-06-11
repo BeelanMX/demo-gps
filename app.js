@@ -42,34 +42,13 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-/*
-client.on('connect', function () {
-  client.subscribe('application/2220000000000000/node/0000000000000022/rx')
-  client.publish('presence', 'Hello mqtt')
-})
-
-const url = 'web.beelan.mx/api/upLink/43435daeccbb21b0'; /// API
-const headers = {
-  'Content-Type': 'application/json',
-  'Authoritation': '' /// TOKEN
-}
-const options = {
-  method: 'GET',
-  headers
-}
-// ------------------------------------------------------------  //
-const getData = async () => {
-  const api = await fetch(url, options);
-  return api;
-}*/
-
 const url = 'http://web.beelan.mx/api/upLink/43435daeccbb21b0';
     // ------------------------------------------------------------  //
     var SendSocket = []
 const getData = () => {
       fetch(url)
         .then((response) => response.json())
-        .then((response) => parseData(response.slice(Math.max(response.length -10 , 1)))) //-10
+        .then((response) => parseData(response.slice(Math.max(response.length -500 , 1)))) //-10
         .then((response) => SendSocket = response) //-10
         .catch((err) => console.log(err));
 
@@ -102,35 +81,6 @@ const base64toHEX = (base64) => {
   }
   return HEX.toUpperCase();
 }
-
-/*
-client.on('message', function (topic, message) {
-  // message is Buffer
-  var json = message.toString();
-  var msg = JSON.parse(json);
-  console.log(msg);
-  console.log(msg.data);
-
-
-  var hexa = new Buffer.from(msg.data, 'base64').toString('hex');
-  console.log(hexa);
-  var data = parseHexString(hexa);
-  console.log(data);
-  for (var i = 2; i < 12; i++) {
-    console.log(data[i]);
-  }
-  console.log();
-  pos = {
-     lat: (data[4] + (data[3] << 8) + (data[2] <<16 )) / 10000,
-     lng: (-1)*((data[7] + (data[6] << 8) + (data[5] <<16 )) / 10000),
-     alt: ((data[10] + (data[9] << 8) + (data[8] <<16 )) / 100)
-  };
-
-  //lat = (data[0] + (data[1] << 8) + (data[2] <<16 )) / 10000
-  //lon = (-1)*((data[3] + (data[4] << 8) + (data[5] <<16 )) / 10000)
-  console.log(pos);
-});
-*/
 
 io.sockets.on('connection', function(socket){
 	socket.on('coords:me', function(data){
@@ -193,12 +143,6 @@ function parseHexString(str) {
     }
     return result;
 }
-
-// getData();
-//
-// setInterval(() => {
-//   getData();
-// }, 10000);
 
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
