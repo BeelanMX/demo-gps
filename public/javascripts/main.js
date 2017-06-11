@@ -1,5 +1,5 @@
 var blueIcon = new L.Icon({
-	iconUrl: 'https://github.com/pointhi/leaflet-color-markers/blob/master/img/marker-icon-blue.png',
+	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-blue.png',
 	shadowUrl: 'img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
@@ -8,7 +8,7 @@ var blueIcon = new L.Icon({
 });
 
 var redIcon = new L.Icon({
-	iconUrl: 'https://github.com/pointhi/leaflet-color-markers/blob/master/img/marker-icon-red.png',
+	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-red.png',
 	shadowUrl: 'img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
@@ -17,7 +17,7 @@ var redIcon = new L.Icon({
 });
 
 var greenIcon = new L.Icon({
-	iconUrl: 'https://github.com/pointhi/leaflet-color-markers/blob/master/img/marker-icon-green.png',
+	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-green.png',
 	shadowUrl: 'img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
@@ -26,7 +26,7 @@ var greenIcon = new L.Icon({
 });
 
 var orangeIcon = new L.Icon({
-	iconUrl: 'https://github.com/pointhi/leaflet-color-markers/blob/master/img/marker-icon-orange.png',
+	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-orange.png',
 	shadowUrl: 'img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
@@ -35,7 +35,7 @@ var orangeIcon = new L.Icon({
 });
 
 var yellowIcon = new L.Icon({
-	iconUrl: 'https://github.com/pointhi/leaflet-color-markers/blob/master/img/marker-icon-yellow.png',
+	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-yellow.png',
 	shadowUrl: 'img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
@@ -44,7 +44,7 @@ var yellowIcon = new L.Icon({
 });
 
 var violetIcon = new L.Icon({
-	iconUrl: 'https://github.com/pointhi/leaflet-color-markers/blob/master/img/img/marker-icon-violet.png',
+	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-violet.png',
 	shadowUrl: 'img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
@@ -53,7 +53,7 @@ var violetIcon = new L.Icon({
 });
 
 var greyIcon = new L.Icon({
-	iconUrl: 'https://github.com/pointhi/leaflet-color-markers/blob/master/img/marker-icon-grey.png',
+	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-grey.png',
 	shadowUrl: 'img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
@@ -62,8 +62,8 @@ var greyIcon = new L.Icon({
 });
 
 var blackIcon = new L.Icon({
-	iconUrl: ':https://github.com/pointhi/leaflet-color-markers/blob/master/img/marker-icon-black.png',
-	shadowUrl: 'img/marker-shadow.png',
+	iconUrl: '/stylesheets/bootstrap/img/marker-icon-2x-black.png',
+	shadowUrl: '/stylesheets/bootstrap/img/marker-shadow.png',
 	iconSize: [25, 41],
 	iconAnchor: [12, 41],
 	popupAnchor: [1, -34],
@@ -121,7 +121,7 @@ function onScript(){
 		console.log(data);
 
 		var markers = data.latlng.map(function (item) {
-	  return L.marker([item.data.lat, item.data.lng]).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+	  return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
     })
 		//console.log(markers);
 
