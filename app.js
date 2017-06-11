@@ -51,9 +51,7 @@ const getData = () => {
         .then((response) => parseData(response.slice(Math.max(response.length -500 , 1)))) //-10
         .then((response) => SendSocket = response) //-10
         .catch((err) => console.log(err));
-
     }
-
 
 // La data de cada uno de los paquetes recividos esta en base64
 const parseData = (data) => {

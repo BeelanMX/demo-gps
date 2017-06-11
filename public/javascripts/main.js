@@ -74,7 +74,6 @@ function onScript(){
 
 	var socket = io.connect(window.location.href);
 
-
 	var mymap = L.map('mimapa',{
 		 center: [21.9008, -102.3163]
 		,zoom:12
@@ -114,7 +113,6 @@ function onScript(){
 
 	}
 
-
 	var posizioni = [];
 
 	socket.on('coords:gps', function (data) {
@@ -124,8 +122,7 @@ function onScript(){
 	  return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
     })
 		//console.log(markers);
-
-		var cities = L.layerGroup(markers).addTo(mymap);
+		var marcadores = L.layerGroup(markers).addTo(mymap);
 
 
 	});
