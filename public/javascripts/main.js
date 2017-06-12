@@ -117,7 +117,7 @@ function onScript(){
 
 	socket.on('coords:gps', function (data) {
 		console.log(data);
-
+		//mymap.removelayer(marcadores);
 		var markers = data.latlng.map(function (item) {
 			//console.log(item.color);
 			if(item.color == '#f51035'){
