@@ -81,7 +81,7 @@ function onScript(){
 
 	tiles = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 18,
-		attribution: 'Map data &copy; 2016 OpenStreetMap contributors, Sacitec &copy; 2016 Electronic Cats',
+		attribution: 'Map data &copy; 2016 OpenStreetMap contributors, &copy; 2016 Electronic Cats',
 		key: 'BC9A493B41014CAABB98F0471D759707'
 	});
 
@@ -121,13 +121,13 @@ function onScript(){
 		var markers = data.latlng.map(function (item) {
 			//console.log(item.color);
 			if(item.color == '#f51035'){
-	  		return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+	  		return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`El fCnt ${item.fCnt}`);
 			}
 			if(item.color == '#ffae34'){
-	  		return L.marker([item.data.lat, item.data.lng], {icon: blueIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+	  		return L.marker([item.data.lat, item.data.lng], {icon: yellowIcon}).bindPopup(`El fCnt ${item.fCnt}`);
 			}
 			if(item.color == '#bafc5c'){
-	  		return L.marker([item.data.lat, item.data.lng], {icon: redIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+	  		return L.marker([item.data.lat, item.data.lng], {icon: redIcon}).bindPopup(`El fCnt ${item.fCnt}`);
 			}
     })
 		//console.log(markers);
