@@ -48,8 +48,10 @@ const url = 'http://web.beelan.mx/api/upLink/43435daeccbb21b0';
 const getData = () => {
       fetch(url)
         .then((response) => response.json())
-        .then((response) => parseData(response.slice(Math.max(response.length -500 , 1)))) //-10
+        //.then((response) => parseData(response.slice(Math.max(response.length, 1)))) //-10
+        .then((response) => parseData(response)) //-10
         .then((response) => SendSocket = response) //-10
+        //.then((response) => console.log(response)) //-10
         .catch((err) => console.log(err));
     }
 
@@ -85,13 +87,13 @@ io.sockets.on('connection', function(socket){
 		//console.log(data);
 		socket.broadcast.emit('coords:user', data);
 	});
-  setInterval(() => {
+  //setInterval(() => {
     getData()
     //console.log(SendSocket)
     socket.emit('coords:gps', {
            latlng: SendSocket
         });
-  }, 10000);
+//  }, 10000);
 
 });
 
