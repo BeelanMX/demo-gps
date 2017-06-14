@@ -81,7 +81,7 @@ function onScript(){
 
 	tiles = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 18,
-		attribution: 'Map data &copy; 2016 OpenStreetMap contributors, Sacitec &copy; 2016 Electronic Cats',
+		attribution: 'Map data &copy; 2016 OpenStreetMap contributors, &copy; 2016 Electronic Cats',
 		key: 'BC9A493B41014CAABB98F0471D759707'
 	});
 
