@@ -42,7 +42,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-const url = 'http://web.beelan.mx/api/upLink/43435daeccbb21b0';
+const url = 'http://web.beelan.mx/api/upLink/1299219128127182';
     // ------------------------------------------------------------  //
     var i = 0;
     var SendSocket = []
@@ -94,7 +94,7 @@ io.sockets.on('connection', function(socket){
     socket.emit('coords:gps', {
            latlng: SendSocket
         });
-  }, 30000);
+  }, 5000);
 
 });
 
@@ -131,8 +131,9 @@ function corrimiento(data) {
     pos = {
        lat: (data[4] + (data[3] << 8) + (data[2] <<16 )) / 10000,
        lng: (-1)*((data[7] + (data[6] << 8) + (data[5] <<16 )) / 10000),
-       //alt: ((data[10] + (data[9] << 8) + (data[8] <<16 )) / 100)
+       alt: ((data[10] + (data[9] << 8) + (data[8] <<16 )) / 100)
     };
+    console.log(pos);
     return pos;
 }
 

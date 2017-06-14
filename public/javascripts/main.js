@@ -121,13 +121,13 @@ function onScript(){
 		var markers = data.latlng.map(function (item) {
 			//console.log(item.color);
 			if(item.color == '#f51035'){
-	  		return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+	  		return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`El fCnt ${item.fCnt} , con altura de: ${item.data.alt} m`);
 			}
 			if(item.color == '#ffae34'){
-	  		return L.marker([item.data.lat, item.data.lng], {icon: blueIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+	  		return L.marker([item.data.lat, item.data.lng], {icon: blueIcon}).bindPopup(`El fCnt ${item.fCnt} , con altura de: ${item.data.alt} m`);
 			}
 			if(item.color == '#bafc5c'){
-	  		return L.marker([item.data.lat, item.data.lng], {icon: redIcon}).bindPopup(`Color es ${item.color} y el fCnt ${item.fCnt}`);
+	  		return L.marker([item.data.lat, item.data.lng], {icon: redIcon}).bindPopup(`El fCnt ${item.fCnt} , con altura de: ${item.data.alt} m`);
 			}
     })
 		//console.log(markers);
