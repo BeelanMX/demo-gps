@@ -16,9 +16,6 @@ var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
-//var mqtt = require('mqtt');
-//var client  = mqtt.connect('http://198.199.97.15', {username:'master', password:'f4rm1nGC'})
-
 var pos;
 var lng,lat;
 
@@ -42,18 +39,24 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-const url = 'http://web.beelan.mx/api/upLink/1299219128127182';
+const url = 'http://api.beelan.mx/v1/upLink/1020120129128129';
     // ------------------------------------------------------------  //
     var i = 0;
     var SendSocket = []
+
 const getData = () => {
-      fetch(url)
+  fetch(url, {
+        method: "GET",
+        headers: {
+          "Authorization": 'L/Hnr55ZiI+t3FQ8cQ2jKrzu+p4='
+        }
+      })
         .then((response) => response.json())
+        //.then((response) => console.log(response))
         .then((response) => parseData(response.slice(Math.max(response.length-1, 1)))) //-10
         .then((response) => SendSocket = response) //-10
-        //.then((response) => console.log(response)) //-10
         .catch((err) => console.log(err));
-    }
+  }
 
 // La data de cada uno de los paquetes recividos esta en base64
 const parseData = (data) => {
@@ -82,6 +85,8 @@ const base64toHEX = (base64) => {
   return HEX.toUpperCase();
 }
 
+
+
 io.sockets.on('connection', function(socket){
 	socket.on('coords:me', function(data){
 		//console.log(data);
@@ -94,7 +99,7 @@ io.sockets.on('connection', function(socket){
     socket.emit('coords:gps', {
            latlng: SendSocket
         });
-  }, 5000);
+  }, 20000);
 
 });
 
