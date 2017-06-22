@@ -53,7 +53,7 @@ const getData = () => {
       })
         .then((response) => response.json())
         //.then((response) => console.log(response))
-        .then((response) => parseData(response.slice(Math.max(response.length-1, 1)))) //-10
+        .then((response) => parseData(response.slice(Math.max(response.length-3000, 1)))) //-10
         .then((response) => SendSocket = response) //-10
         .catch((err) => console.log(err));
   }
@@ -92,7 +92,7 @@ io.sockets.on('connection', function(socket){
 		//console.log(data);
 		socket.broadcast.emit('coords:user', data);
 	});
-  setInterval(() => {
+  //setInterval(() => {
     getData()
     i++;
     //console.log(SendSocket)
@@ -101,7 +101,7 @@ io.sockets.on('connection', function(socket){
         });
   }, 20000);
 
-});
+//});
 
 function parseHexString(str) {
   console.log(str);
