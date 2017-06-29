@@ -53,7 +53,7 @@ const getData = () => {
       })
         .then((response) => response.json())
         //.then((response) => console.log(response))
-        .then((response) => parseData(response.slice(Math.max(response.length-3000, 1)))) //-10
+        .then((response) => parseData(response.slice(Math.max(response.length-1000, 1)))) //-10
         .then((response) => SendSocket = response) //-10
         .catch((err) => console.log(err));
   }
