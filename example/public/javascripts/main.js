@@ -70,7 +70,7 @@ var blackIcon = new L.Icon({
 	shadowSize: [41, 41]
 });
 
-const url = 'http://api.beelan.mx/v1/upLink/1020120129128129';
+const url = 'http://api.beelan.mx/v1/upLink/054201125412ff12';
     // ------------------------------------------------------------  //
 var i = 0;
 
@@ -78,7 +78,7 @@ const getData = () => {
   fetch(url, {
         method: "GET",
         headers: {
-          "Authorization": 'GIPLte7bPxW3UkTwacVfM7kNvwE='
+          "Authorization": 'rpmDTu2rLmyH6NgjGpGs8fubaHg='
         }
       })
         .then((response) => response.json())
