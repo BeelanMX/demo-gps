@@ -196,7 +196,7 @@ function onScript(){
 	function onlocation(position){
 		//console.log(position);
 		var pos = position.latlng;
-		var computer = L.marker([pos.lat,pos.lng]);
+		var computer = L.marker([pos.lat,pos.lng],{icon: greyIcon});
 		mymap.addLayer(computer)
 		computer.bindPopup("Computadora").openPopup();
 
@@ -211,18 +211,9 @@ function ShowMap(data) {
 	 //mymap.removelayer(marcadores);
 	 var markers = data.map(function (item) {
 		 //console.log(item.color);
-		 if(item.color == '#f51035'){
-			 return L.marker([item.data.lat, item.data.lng], {icon: blackIcon}).bindPopup(`El fCnt ${item.fCnt} , con altura de: ${item.data.alt} m`);
-		 }
-		 if(item.color == '#ffae34'){
+		 // usando el mismo color para todos los nodos
 			 return L.marker([item.data.lat, item.data.lng], {icon: blueIcon}).bindPopup(`El fCnt ${item.fCnt} , con altura de: ${item.data.alt} m`);
-		 }
-		 if(item.color == '#bafc5c'){
-			 return L.marker([item.data.lat, item.data.lng], {icon: redIcon}).bindPopup(`El fCnt ${item.fCnt} , con altura de: ${item.data.alt} m`);
-		 }
 	 })
-	 markers.push(L.marker([21.855825, -102.249890], {icon: orangeIcon}).bindPopup('Gateway-ID: 009000000000aabb'))
-	 markers.push(L.marker([21.892925, -102.312617], {icon: greenIcon}).bindPopup('Gateway-ID: b827ebffffbe86a6'))
 	 var marcadores = L.layerGroup(markers).addTo(mymap);
 
  };
