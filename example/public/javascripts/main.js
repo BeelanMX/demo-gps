@@ -83,7 +83,7 @@ const getData = () => {
       })
         .then((response) => response.json())
         //.then((response) => console.log(response))
-        .then((response) => parseData(response.slice(0 , Math.min(20, response.length-1)))) //-10
+        .then((response) => parseData(response.slice(0 , Math.min(1, response.length-1)))) //-10
         .then((response) => ShowMap(response) ) //-10
         .catch((err) => console.log(err));
   }
@@ -218,7 +218,11 @@ function ShowMap(data) {
 
  };
 
-
+// initial data
 getData()
+setInterval(() => {
+      getData()
+    }, 20000);
+
 $(document).on('ready',onScript);
 //Lat: 19.210216666666668 Lon: -96.17367333333334
